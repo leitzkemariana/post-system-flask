@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<div class="container">
+    <h1>Posts</h1>
+
+    <form method="POST" action="{{ url_for('exibir_posts') }}">
+        {{ form.hidden_tag() }}
+
+        <div style="margin-bottom: 20px;">
+            <label style="font-weight: bold;">{{ form.escola.label }}</label><br>
+            {{ form.escola(style="width: 100%; padding: 10px; margin-top: 5px; border-radius: 4px; border: 1px solid #ccc;") }}
+            
+        </div>
+    </form>
+
+    {% if existe_posts %}
+    <table>
+        <tbody>
+            {% for post in posts %}
+                <tr>
+                    <td>{{loop.index}}</td> 
+                    <td> | Autor: {{post.autor}}</td>
+                    <td> | Escola: {{post.escola}}</td>
+                    <td> | Título: {{post.titulo}}</td>
+                    <td> | Texto: {{post.texto}}</td>
+                    <td> | Data: {{post.data}} | </td>
+                    <td>
+                    <form method="POST" action="{{ url_for('abrir_post', post_id=loop.index) }}" >
+                        <button type="submit">Abrir</button>
+                    </form>
+                    </td>
+
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+
+{% endblock %}

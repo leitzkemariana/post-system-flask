@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<div class="container">
+    <h1>Usuário: {{ usuario }}</h1>
+    <hr>
+    <h2>Posts: </h2>
+
+    {% if existe_posts %}
+    <table>
+        <tbody>
+            {% for post in posts %}
+                <tr>
+                    <td>{{loop.index}}</td> 
+                    <td> | Autor: {{post.autor}}</td>
+                    <td> | Escola: {{post.escola}}</td>
+                    <td> | Título: {{post.titulo}}</td>
+                    <td> | Texto: {{post.texto}}</td>
+                    <td> | Data: {{post.data}} | </td>
+                    <td>
+                        <form method="POST" action="{{ url_for ('editar_post', post_id=loop.index)}}">
+                            <button type="submit">Editar</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="POST" action="{{ url_for ('excluir_post', post_id=loop.index)}}">
+                            <button type="submit">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<h1 style="color: #333; text-align: center;">Editar Post</h1>
+    <hr>
+
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+
+        <h3> Autor: {{ usuario }}</h3>
+        
+        <div style="margin-bottom: 20px;">
+
+            <label style="font-weight: bold;">{{ form.escola.label }}</label><br>
+            {{ form.escola(style="width: 100%; padding: 10px; margin-top: 5px; border-radius: 4px; border: 1px solid #ccc;", placeholder=post.escola) }}
+            
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label style="font-weight: bold;">{{ form.titulo.label }}</label><br>
+            {{ form.titulo(style="width: 100%; padding: 10px; margin-top: 5px; border-radius: 4px; border: 1px solid #ccc;", placeholder=post.titulo) }}
+            
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label style="font-weight: bold;">{{ form.texto.label }}</label><br>
+            {{ form.texto(style="width: 100%; padding: 10px; margin-top: 5px; border-radius: 4px; border: 1px solid #ccc;", placeholder=post.texto) }}
+
+        </div>
+        
+        <div style="text-align: center;">
+            {{ form.submit(class_="botao", style="width: 50%; font-size: 1.1em;") }}
+        </div>
+    </form>
+
+{% endblock %}

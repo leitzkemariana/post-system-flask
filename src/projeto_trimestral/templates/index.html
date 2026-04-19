@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<h1 style="color: #333; text-align: center;">Nova Conta</h1>
+    <hr>
+
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+
+        <div style="margin-bottom: 20px;">
+            <label style="font-weight: bold;">{{ form.nome.label }}</label><br>
+            {{ form.nome(style="width: 100%; padding: 10px; margin-top: 5px; border-radius: 4px; border: 1px solid #ccc;") }}
+            
+            {% if form.nome.errors %}
+                {% for erro in form.nome.errors %}
+                    <span class="erro-alerta">⚠ {{ erro }}</span>
+                {% endfor %}
+            {% endif %}
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <label style="font-weight: bold;">{{ form.senha.label }}</label><br>
+            {{ form.senha(style="width: 100%; padding: 10px; margin-top: 5px; border-radius: 4px; border: 1px solid #ccc;") }}
+            
+            {% if form.senha.errors %}
+                {% for erro in form.senha.errors %}
+                    <span class="erro-alerta">⚠ {{ erro }}</span>
+                {% endfor %}
+            {% endif %}
+        </div>
+        
+        <div style="text-align: center;">
+            {{ form.submit(class_="botao", style="width: 50%; font-size: 1.1em;") }}
+        </div>
+    </form>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+{% endblock %}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Site Escolar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <a href="/criar-conta">Criar Conta</a>
+        <a> | </a>
+        <a href="/">Login</a>
+        <a> | </a>
+        <a href="/perfil">Perfil</a>
+        <a> | </a>
+        <a href="/posts">Home</a>
+        <a> | </a>
+        <a href="/publicar-post">Criar Post</a>
+        <a> | </a>
+        <a href="/sair">Sair</a>
+    </nav>
+
+    <hr>
+
+    <div class="conteudo">
+        {% block conteudo %} 
+        {% endblock %}
+    </div>
+
+    <hr>
+</body>
+</html>
