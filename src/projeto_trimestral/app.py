@@ -2,9 +2,6 @@ from datetime import timedelta
 import json
 from flask import Flask, render_template,request,make_response,redirect,url_for,session,flash
 from datetime import datetime
-from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired
 
 from forms.Login_Form import Login_Form
 from forms.Post_Form import Post_Form
@@ -27,6 +24,7 @@ def logar():
             'senha': formulario.senha.data
         }
         cookies = request.cookies.get('lista_usuarios')
+        lst_usuarios = ""
 
         if cookies:
             lst_usuarios = json.loads(cookies)
@@ -68,22 +66,23 @@ def criar_conta():
 
         if cookies:
             lst_usuarios = json.loads(cookies)
-
-            nome_disponivel = True
-            for usuario in lst_usuarios:
-                if usuario['nome'] == novo_usuario['nome']:
-                    nome_disponivel = False
-
-            if nome_disponivel:
-                lst_usuarios.append(novo_usuario)
-                session['usuario_logado'] = novo_usuario['nome']
-                flash("Usuário criado com sucesso")
-            else:
-                flash("O nome de usuário informado já está sendo utilizado!")
-
         else:
             lst_usuarios = [novo_usuario]
             session['usuario_logado'] = novo_usuario['nome']
+
+
+        nome_disponivel = True
+        for usuario in lst_usuarios:
+            if usuario['nome'] == novo_usuario['nome']:
+                nome_disponivel = False
+
+        if nome_disponivel:
+            lst_usuarios.append(novo_usuario)
+            session['usuario_logado'] = novo_usuario['nome']
+            flash("Usuário criado com sucesso")
+                
+        else:
+            flash("O nome de usuário informado já está sendo utilizado!")
 
         resposta = redirect(url_for('criar_conta'))
         resposta.set_cookie('lista_usuarios', json.dumps(lst_usuarios), max_age=36000)
@@ -262,8 +261,9 @@ def excluir_post(post_id):
 @app.route("/perfil", methods=["GET","POST"])
 def abrir_perfil():
     cookies = request.cookies.get('lista_posts')
-    print(f"cookies: {cookies}")
+    posts_usuario = []
 
+    print(f"cookies: {cookies}")
     if cookies:
         lst_posts = json.loads(cookies)
         posts_usuario = filtrar_posts_usuario(lst_posts)
