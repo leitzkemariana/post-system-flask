@@ -66,10 +66,10 @@ def criar_conta():
 
         if cookies:
             lst_usuarios = json.loads(cookies)
+            if not isinstance(lst_usuarios, list):
+                lst_usuarios = []
         else:
             lst_usuarios = [novo_usuario]
-            session['usuario_logado'] = novo_usuario['nome']
-
 
         nome_disponivel = True
         for usuario in lst_usuarios:
@@ -90,6 +90,7 @@ def criar_conta():
         return resposta
     
     return render_template("index.html",form=formulario)
+
 
 @app.route("/sair", methods=["GET"])
 def sair():
